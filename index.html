@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Twisted Betrayal 🧸</title>
+  <style>
+    body {
+      background: linear-gradient(#f8e6d0, #d8b9a2);
+      color: #3b2f2f;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    #story-text {
+      font-size: 1.2em;
+      padding: 20px;
+      background: #fff9f3;
+      border-radius: 15px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(80, 60, 50, 0.2);
+    }
+    .choice-btn {
+      display: block;
+      margin: 12px auto;
+      padding: 10px 20px;
+      background-color: #a67458;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .choice-btn:hover {
+      background-color: #855a43;
+    }
+    .sticker {
+      width: 80px;
+      margin: 15px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Twisted Betrayal 🧸</h1>
+
+  <!-- Animated Stickers -->
+  <div>
+    <img src="https://media.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif" class="sticker" alt="Bear Sticker">
+    <img src="https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif" class="sticker" alt="Heart Sticker">
+  </div>
+
+  <div id="story-text">You're an undercover agent at a cozy fashion brand. Tonight, you find a folder labeled "Project Eclipse". Your best friend Zara walks in. Her eyes widen. “You weren’t supposed to see that…”</div>
+  <div id="choices"></div>
+
+  <script>
+    const storyData = {
+      start: {
+        text: "You're an undercover agent at a cozy fashion brand. Tonight, you find a folder labeled 'Project Eclipse'. Your best friend Zara walks in. Her eyes widen. “You weren’t supposed to see that…”",
+        choices: [
+          { text: "Confront her", next: "confrontZara" },
+          { text: "Play it cool", next: "pretend" }
+        ]
+      },
+      confrontZara: {
+        text: "'I work for Eclipse,' she confesses. 'But I was protecting you.' Is she lying or not? Your heart races.",
+        choices: [
+          { text: "Trust her", next: "trustZara" },
+          { text: "Call HQ and report", next: "reportZara" }
+        ]
+      },
+      pretend: {
+        text: "You pretend nothing happened. That night, someone slips a note under your door: 'She’s not who you think she is.'",
+        choices: [
+          { text: "Confront Zara with the note", next: "confrontZara" },
+          { text: "Investigate on your own", next: "investigateAlone" }
+        ]
+      },
+      trustZara: {
+        text: "You join her undercover. Months later, you discover she was using you. Eclipse takes over. You were betrayed.",
+        choices: [
+          { text: "Start Over", next: "start" }
+        ]
+      },
+      reportZara: {
+        text: "Backup arrives. Zara escapes, but Eclipse is exposed. You're a hero — but you still think of her sometimes.",
+        choices: [
+          { text: "Start Over", next: "start" }
+        ]
+      },
+      investigateAlone: {
+        text: "You sneak into the archives. The truth? Zara IS the head of Eclipse. She’s been playing everyone.",
+        choices: [
+          { text: "Expose her publicly", next: "exposeZara" },
+          { text: "Secretly join her to destroy her from within", next: "doubleAgent" }
+        ]
+      },
+      exposeZara: {
+        text: "Your press leak goes viral. Zara is arrested — but you now have a target on your back.",
+        choices: [
+          { text: "Start Over", next: "start" }
+        ]
+      },
+      doubleAgent: {
+        text: "You pretend to join her. Over months, you gain her trust... then take Eclipse down from the inside. Victory. ✨",
+        choices: [
+          { text: "Play Again", next: "start" }
+        ]
+      }
+    };
+
+    const storyText = document.getElementById("story-text");
+    const choicesDiv = document.getElementById("choices");
+
+    function showScene(key) {
+      const scene = storyData[key];
+      storyText.innerText = scene.text;
+      choicesDiv.innerHTML = "";
+      scene.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.innerText = choice.text;
+        btn.onclick = () => showScene(choice.next);
+        choicesDiv.appendChild(btn);
+      });
+    }
+
+    showScene("start");
+  </script>
+</body>
+</html>
